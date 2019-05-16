@@ -7,11 +7,6 @@ class App extends Component {
   state = {
     comments: {},
     isLoading: false
-    // [
-    //   { content: "comentário 1", date: new Date() },
-    //   { content: "comentário 2", date: new Date() },
-    //   { content: "comentário 3", date: new Date() },
-    // ]
   }
 
   componentDidMount() {
@@ -37,26 +32,49 @@ class App extends Component {
     const comments = {}
     comments['comments/' + id] = {
       content: newComment.content,
-      date: newComment.date
+      date: newComment.date,
+      number: newComment.number,
+      option: newComment.option
     }
     database.ref().update(comments)
     console.log(comments)
+  }
 
-    // não precisa mais setar o estado pq o update obriga o on('value') a ser chamado depois
-    // dentro do componentDidMount, fazendo com que o estado seja atualizado por lá
-    // this.setState({
-    //   comments: [...this.state.comments, newComment],
-    // })
+  deleteComment = (comment) => {
+    const { database } = this.props
+    const id = database.ref().child('comments').push().key
+    
+    //const comments = {}
+    //database.ref().update(comments)
+    console.log('database', database)
+    console.log('child', database.ref().child('comments'))
+    console.log('id', id)
   }
 
   render() {
     return (
-      <div className="App">
-        <NewComment sendComment={this.sendComment} />
-        <Comments comments={this.state.comments} />
-        {
-          this.state.isLoading && <p>Carregando ... </p>
-        }
+      <div className="App" 
+        style={{
+          margin: 'auto',
+          width: '50%',
+        }}>
+          <p style={{
+            fontFamily:'verdana', 
+            fontSize:18,
+            fontWeight:'bold',
+            textAlign:'center',
+          }}>Insira o seu gasto: </p>
+          <NewComment sendComment={this.sendComment} />
+          <Comments comments={this.state.comments} />
+          {
+            this.state.isLoading && 
+            <p style={{
+              fontFamily:'verdana', 
+              fontSize:18,
+              fontWeight:'bold',
+              textAlign:'center',
+            }}>Carregando ... </p>
+          }
       </div>
     );
   }
