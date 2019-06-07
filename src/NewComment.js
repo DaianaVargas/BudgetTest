@@ -60,13 +60,13 @@ class NewComment extends Component {
         return(
             <div align="center">
                 <div style={{marginBottom: 10}}>
-                    <textarea value={this.state.newComment.content} onChange={this.handleChange}></textarea>
+                    <textarea value={this.state.newComment.content} onChange={this.handleChange} style={{fontFamily:'verdana', fontSize:14, width: 200}} ></textarea>
                 </div>
                 <div style={{marginBottom: 10}}>
-                    <input type="number" name="value" min="1" value={this.state.newComment.number} onChange={this.handleNumberChange} />
+                    <input type="number" name="value" min="1" value={this.state.newComment.number} onChange={this.handleNumberChange} style={{fontFamily:'verdana', fontSize:14, width: 200}} />
                 </div>
                 <div style={{marginBottom: 10}}>
-                    <select id="mySelect" value={this.state.newComment.option} onChange={this.handleOptionChange}>
+                    <select id="mySelect" value={this.state.newComment.option} onChange={this.handleOptionChange} style={{fontFamily:'verdana', fontSize:14, width: 200}} >
                         <option>Contas a Pagar</option>
                         <option>Transporte</option>
                         <option>Alimentação</option>
@@ -76,17 +76,18 @@ class NewComment extends Component {
                         <option>Extra</option>
                     </select>
                 </div>
-                <div style={{marginBottom: 10}}>
+                <div style={{marginBottom: 10, marginTop:20}}>
                     <button onClick={this.sendComment}
-                        style={{backgroundColor: 'Gray',
-                        // border: 'none',
-                        color: 'white',//DodgerBlue
+                        style={{backgroundColor: 'rgb(220, 220, 255)',
                         padding: 15,
                         textAlign: 'center',
                         fontSize: 16,
                         cursor: 'pointer',
-                        width: 200,
-                        marginBottom:10}}>Enviar</button>
+                        width: 100,
+                        fontFamily:'verdana', 
+                        fontWeight:'bold',
+                        marginBottom:10,
+                        borderRadius:10}}>Enviar</button>
                 </div>
             </div>
         )

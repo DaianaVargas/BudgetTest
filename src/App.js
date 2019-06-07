@@ -38,34 +38,51 @@ class App extends Component {
     }
     database.ref().update(comments)
     console.log(comments)
+    this.componentDidMount()
   }
 
-  deleteComment = (comment) => {
+  onRemove = key => {
     const { database } = this.props
-    const id = database.ref().child('comments').push().key
+    const commentRef = database.ref(`comments/${key}`);
     
-    //const comments = {}
-    //database.ref().update(comments)
-    console.log('database', database)
-    console.log('child', database.ref().child('comments'))
-    console.log('id', id)
-  }
+    commentRef.remove();
+  };
+
+  onEdit = (key, comment) => {
+    const { database } = this.props
+    const commentRef = database.ref(`comments/${key}`);
+    
+    commentRef.update({
+      content: comment.content, 
+      date: comment.date,
+      number: comment.number,
+      option: comment.option
+    });
+  };
 
   render() {
     return (
       <div className="App" 
         style={{
           margin: 'auto',
-          width: '50%',
+          width: '100%',
+          height: '100%',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: "rgb(119, 124, 255)"
+          //background: "linear-gradient(rgb(201, 202, 255),rgb(119, 124, 255))"
         }}>
           <p style={{
             fontFamily:'verdana', 
             fontSize:18,
             fontWeight:'bold',
             textAlign:'center',
+            paddingTop:30
           }}>Insira o seu gasto: </p>
           <NewComment sendComment={this.sendComment} />
-          <Comments comments={this.state.comments} />
+          <Comments comments={this.state.comments} onRemove={this.onRemove} onEdit={this.onEdit}/>
           {
             this.state.isLoading && 
             <p style={{
